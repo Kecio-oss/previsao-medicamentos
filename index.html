@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Previsão de Entregas - Medicamentos</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h1>📦 Previsão de Chegada de Medicamentos</h1>
+  <table id="tabela" class="display"></table>
+
+  <!-- jQuery e DataTables -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  
+  <script>
+    $(document).ready(function () {
+      $('#tabela').DataTable({
+        ajax: "G_Entregas.csv",
+        deferRender: true,
+        paging: true,
+        searching: true,
+        ordering: true,
+        dom: 'Bfrtip',
+        language: {
+          url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json"
+        }
+      });
+    });
+  </script>
+</body>
+</html>
