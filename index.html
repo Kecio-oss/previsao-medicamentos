@@ -22,21 +22,27 @@
   <h1>📦 Previsão de Chegada de Medicamentos</h1>
   <table id="tabela" class="display"></table>
 
-  <!-- jQuery e DataTables -->
+  <!-- jQuery, DataTables e PapaParse -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   
   <script>
     $(document).ready(function () {
-      $('#tabela').DataTable({
-        ajax: "G_Entregas.csv",
-        deferRender: true,
-        paging: true,
-        searching: true,
-        ordering: true,
-        dom: 'Bfrtip',
-        language: {
-          url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json"
+      Papa.parse("G_Entregas.csv", {
+        download: true,
+        header: true,
+        complete: function(results) {
+          $('#tabela').DataTable({
+            data: results.data,
+            columns: Object.keys(results.data[0]).map(function(col) {
+              return { title: col, data: col };
+            }),
+            pageLength: 25,
+            language: {
+              url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json"
+            }
+          });
         }
       });
     });
